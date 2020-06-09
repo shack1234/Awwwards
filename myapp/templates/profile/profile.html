@@ -1,0 +1,148 @@
+{%extends 'base.html' %}
+{% load bootstrap3 %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles%}
+{{block.super}}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<body style=" background: rgb(223, 223, 223);">
+  <div class="container " style="font-family: 'Lato', sans-serif;">
+    <div class="col-md-4">
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        {% if profiles.profile_pic %}
+        <figure style="font-size: 10px !important;">
+          <img src="{{profiles.profile_pic.url}}" class="img-circle" style="width:300px;border-radius: 50%;" id="me">
+
+
+        </figure>
+        {%else%}
+        <figure>
+          <img src="/static/photos/avatar.png" class="img-circle">
+          <figcaption>{{profiles.user.username}}</figcaption>
+        </figure>
+        {% endif %}
+      </div>
+      <div class="col-md-5">
+        <figcaption style="font-size:30px;"><i class="fas fa-user"></i>&nbsp;&nbsp;{{profiles.user.username}}</figcaption>
+        <br>
+        <blockquote style="font-size:20px;">{{profiles.bio}}</blockquote>
+        <br>
+        <span style="font-size:19px;"><i class="fas fa-phone">&nbsp;{{profiles.contact}}</i></span>
+        <br>
+        <br>
+        <span style="font-size:19px;"><i class="fas fa-envelope">&nbsp;{{profiles.user.email}}</i></span>
+
+      </div>
+    </div>
+    <br>
+    <br>
+    <h3 style="font-weight:bold;font-family: 'Lato', sans-serif;text-align: center;">Projects Posted :</h3>
+    <br>
+    <div class="row">
+      {% for project in projects %}
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="thumbnail-header">
+          <h4 style="font-family: 'Lato', sans-serif;text-align: center;font-size: 20px;color: rgb(69, 182, 69);"><b>{{project.title}}</b></h4>
+        </div>
+        <div class="thumbnail" style="width:100% !important;border: solid rgb(34, 34, 34);">
+          <img src="{{project.image.url}}" data-toggle="modal" data-target="#exampleModalCenter{{project.id}}" class="img-responsive project"
+            alt="" style="height:330px;width: 100% !important;position: center;size: cover;" alt="">
+
+          <!-- Modal -->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="modal fade" style="width:100% !important;" id="exampleModalCenter{{project.id}}" tabindex="-1"
+              role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content" style=" font-family: 'Lato', sans-serif !important;background: rgb(29, 29, 29); color:#d6d3cd;">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle" style="font-size:40px;"><b>{{project.title}}</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <img src="{{project.image.url}}" class="img-responsive" alt="" style="height:500px;width: 100%;">
+                  </div>
+                  <div class="modal-body">
+                    <br>
+                    <br>
+                    <p style="font-size:22px;padding-right: 70px;"><b>Posted by:</b> {{project.user}}</p>
+                    <p style="font-size:22px;padding-right: 70px;"><b>Posted On:</b> {{project.posted_on}}</p>
+                    <p style="font-size:22px;padding-right: 70px;"><b>Description:</b> {{project.description}}</p>
+                    <form action="">
+                      <b style="font-size:22px;">Link:</b>&nbsp;<a href="{{project.link}}" style="width:100%;height:40px;font-size: 20px;">{{project.link}}</a>
+                      <br>
+                    </form>
+                    <br>
+                    <br>
+                    <h4 style="color: whitesmoke;text-decoration-line: underline;">Project Rating Criteria</h4>
+                    <h5>{{ project.rating.count }} <h5 style="color: green;">a)Design</h5> average = {{
+                      project.average_design | floatformat }} </h5>
+
+                    <h5>{{ project.rating.count }} <h5 style="color: green;">b)Usability</h5> average = {{
+                      project.average_usability | floatformat }} </h5>
+
+                    <h5>{{ project.rating.count }} <h5 style="color: green;">c)Content</h5> average = {{
+                      project.average_content | floatformat }}</h5>
+                    <br><br>
+
+                    <div class="col-xs-3 col-sm-6 col-md-4 col-lg-4">
+                      <h5>a)Rate By Design</h5>
+
+
+
+                      <form action="{%url 'rate_design' project_id=project.id %}" method="POST">
+                        {%csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
+                      </form>
+                      <br>
+                      <h5>b)Rate By Content</h5>
+                      <form action="{%url 'rate_content' project_id=project.id %}" method="POST" style="width:100%;">
+                        {%csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
+                      </form>
+                      <br>
+                      <h5>c)Rate By Usability</h5>
+                      <form action="{%url 'rate_usability' project_id=project.id %}" method="POST">
+                        {%csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
+                      </form>
+
+
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default button" data-dismiss="modal">Close &nbsp;<i class="fas fa-times"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      {% endfor %}
+      <br>
+      <br>
+    </div>
+  </div>
+</body>
+
+{% endblock%}

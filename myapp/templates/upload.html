@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<br><br>
+<div class="container" style="font-family: 'Lato', sans-serif;font-size: 17px;">
+    <div class="row">
+        <div class="col-md-8">
+            <form action="{% url 'upload_project' %}" method="POST" enctype="multipart/form-data" style="font-weight:bold !important;">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-success btn-md" value="POST">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
