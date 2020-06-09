@@ -16,7 +16,6 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 
-
 # Create your views here.
 def signup(request):
     title='Signup Page'
@@ -32,7 +31,6 @@ def signup(request):
     else:
         form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form,'title':title})
-
 
 @login_required(login_url='/accounts/login/')
 def upload_project(request):
@@ -51,7 +49,6 @@ def upload_project(request):
 
       return render(request,'upload.html')
   
-  
 @login_required(login_url='/accounts/login/')
 def profile(request, user_id):
     '''
@@ -65,7 +62,6 @@ def profile(request, user_id):
 
     return render(request, 'profile/profile.html')
 
-    
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
     '''
@@ -83,7 +79,6 @@ def update_profile(request):
     else:
         form = UpdateProfileForm()
     return render(request, 'profile/update_profile.html', locals())
-
 
 class ProjectList(APIView):
     def get(self, request, format=None):
