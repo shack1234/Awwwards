@@ -5,11 +5,8 @@
 {% load static %}
 {% block styles %}
 {{block.super}}
-
 {% endblock %}
 <br><br>
-<br>
-
 <div class="container" style="font-family: 'Lato', sans-serif;">
     <div class="row">
      {% if projects%}
@@ -31,58 +28,58 @@
             style="height: 330px;width: 100%;position: center;size: cover;" alt="">
         </div>
         <!-- Modal -->
-    <div class="modal fade modal" id="exampleModalCenter{{project.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content" style=" font-family: 'Lato', sans-serif !important;background: rgb(29, 29, 29); color:#d6d3cd;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle" style="font-size:40px;"><b>{{project.title}}</b></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-        </div>
-    <div class="modal-body">
-            <img src="{{project.image.url}}" class="img-responsive" alt="" style="height:500px;width: 100%;">
-    </div>
-    <div class="modal-body">
-            <p style="font-size:22px;padding-right: 70px;"><b>Posted by:</b> {{project.user|title}}</p>
-            <p style="font-size:22px;padding-right: 70px;"><b>Posted On:</b> {{project.posted_on}}</p>
-            <p style="font-size:22px;padding-right: 70px;"><b>Description:</b> {{project.description|title}}</p>
-                <form action="">
-                    <b style="font-size:22px;">Project Link:</b>&nbsp;<a href="{{project.link}}" style="width:100%;height:40px;font-size: 20px;">{{project.link}}</a>
+        <div class="modal fade modal" id="exampleModalCenter{{project.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content" style=" font-family: 'Lato', sans-serif !important;background: rgb(29, 29, 29); color:#d6d3cd;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle" style="font-size:40px;"><b>{{project.title}}</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+            </div>
+            <div class="modal-body">
+                    <img src="{{project.image.url}}" class="img-responsive" alt="" style="height:500px;width: 100%;">
+            </div>
+        <div class="modal-body">
+                <p style="font-size:22px;padding-right: 70px;"><b>Posted by:</b> {{project.user|title}}</p>
+                <p style="font-size:22px;padding-right: 70px;"><b>Posted On:</b> {{project.posted_on}}</p>
+                <p style="font-size:22px;padding-right: 70px;"><b>Description:</b> {{project.description|title}}</p>
+                    <form action="">
+                        <b style="font-size:22px;">Project Link:</b>&nbsp;<a href="{{project.link}}" style="width:100%;height:40px;font-size: 20px;">{{project.link}}</a>
+                        <br>
+                    </form>
                     <br>
-                </form>
-                <br>
-            <h4 style="color: whitesmoke;text-decoration-line: underline;">Project Rating Criteria</h4>
-            <h5>{{ project.rating.count }} <h5 style="color: green;">a)Design</h5> average = {{ project.average_design | floatformat }} </h5>
+                <h4 style="color: whitesmoke;text-decoration-line: underline;">Project Rating Criteria</h4>
+                <h5>{{ project.rating.count }} <h5 style="color: green;">a)Design</h5> average = {{ project.average_design | floatformat }} </h5>
+                
+                <h5>{{ project.rating.count }} <h5 style="color: green;">b)Usability</h5> average = {{ project.average_usability | floatformat }} </h5>
+                <h5>{{ project.rating.count }} <h5 style="color: green;">c)Content</h5>  average = {{ project.average_content | floatformat }}</h5>
+                <br><br>
             
-            <h5>{{ project.rating.count }} <h5 style="color: green;">b)Usability</h5> average = {{ project.average_usability | floatformat }} </h5>
-            <h5>{{ project.rating.count }} <h5 style="color: green;">c)Content</h5>  average = {{ project.average_content | floatformat }}</h5>
-            <br><br>
-        
-    <div class="col-xs-3 col-sm-6 col-md-4 col-lg-4">
-        <h5>a)Rate By Design</h5>
-            <form  action="{%url 'rate_design' project_id=project.id %}" method="POST">
-                {%csrf_token%}
-                {% bootstrap_form form layout='inline' %}
-                <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
-            </form>
-        
-            <h5>b)Rate By Content</h5>
-            <form  action="{%url 'rate_content' project_id=project.id %}" method="POST" style="width:100%;">
-                {%csrf_token%}
-                {% bootstrap_form form layout='inline' %}
-                <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
-            </form>
-                <br>
-            <h5>c)Rate By Usability</h5>
-            <form  action="{%url 'rate_usability' project_id=project.id %}" method="POST">
-                {%csrf_token%}
-                {% bootstrap_form form layout='inline' %}
-                <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
-            </form>
-        </div>
-    </div>
+            <div class="col-xs-3 col-sm-6 col-md-4 col-lg-4">
+                <h5>a)Rate By Design</h5>
+                    <form  action="{%url 'rate_design' project_id=project.id %}" method="POST">
+                        {%csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
+                    </form>
+                
+                    <h5>b)Rate By Content</h5>
+                    <form  action="{%url 'rate_content' project_id=project.id %}" method="POST" style="width:100%;">
+                        {%csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
+                    </form>
+                        <br>
+                    <h5>c)Rate By Usability</h5>
+                    <form  action="{%url 'rate_usability' project_id=project.id %}" method="POST">
+                        {%csrf_token%}
+                        {% bootstrap_form form layout='inline' %}
+                        <input type="submit" class="btn-md btn btn-success" style="width:50% !important;" value="Rate">
+                    </form>
+                </div>
+            </div>
             <div class="modal-footer">
                     <button type="button" class="btn btn-default button" data-dismiss="modal">Close &nbsp;<i class="fas fa-times"></i></button>
             </div>
@@ -93,7 +90,7 @@
  {% endfor %}
 {% endif %}
     </div>
-    </div>
+</div>
    
     {% endblock %}
     {% block scripts %} {{block.super}}
