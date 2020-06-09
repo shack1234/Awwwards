@@ -9,17 +9,16 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values,see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
 import os
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'u(ifdhorqux%njfks6va4b-5hx9mxnxq@thr84b3==zdmsw@9z'
@@ -40,7 +39,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
 INSTALLED_APPS = [
     'myapp',
     'bootstrap4',
@@ -94,15 +92,13 @@ DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
            'NAME': 'awards',
-           'USER': 'shadrack',
-           'PASSWORD': '1234'
+           'USER': 'urname',
+           'PASSWORD': 'urpass'
        }
    }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
