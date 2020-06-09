@@ -27,7 +27,6 @@ class Profile(models.Model):
   def __str__(self):
     return self.bio
 
-
   @receiver(post_save, sender=User)
   def create_user_profile(sender, instance, created, **kwargs):
           if created:
@@ -67,8 +66,6 @@ class Profile(models.Model):
   def filter_by_id(cls, id):
       profile = Profile.objects.filter(user = id).first()
       return profile
-
-
 
 class Project(models.Model):
   '''
