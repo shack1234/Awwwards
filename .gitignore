@@ -1,0 +1,4 @@
+.env
+virtual/
+requirements.txt
+db.sqlite3
